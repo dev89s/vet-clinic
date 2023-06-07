@@ -8,7 +8,7 @@ SELECT name, escape_attempts FROM animals WHERE weight_kg > 10.5;
 SELECT * FROM animals WHERE NOT name = 'Gabumon';
 SELECT * FROM animals WHERE weight_kg >=10.4 AND weight_kg <= 17.3;
 
-/* Queries that manipulate data on table animals (Project 2) */
+/* Queries that manipulate data on table aniqumals (Project 2) */
 
 -- Update the table animals by setting species column to unspecified
 BEGIN;
@@ -94,7 +94,7 @@ SELECT neutered, SUM(escape_attempts) FROM animals GROUP BY neutered
 ) as max_escaped_neuter_type
 );
 
--- Who escapes the most, neutered or not neutered animals?
+-- What is the minimum and maximum weight of each type of animal?
 
 SELECT MAX(weight_kg) AS min_weight, MIN(weight_kg) as max_weight, species from animals
 GROUP BY species;
