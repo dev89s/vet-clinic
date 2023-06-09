@@ -103,3 +103,55 @@ GROUP BY species;
 SELECT AVG(escape_attempts), species FROM animals
 WHERE date_of_birth > '1990-01-01' AND date_of_birth < '2000-01-01'
 GROUP BY species;
+
+
+/* Queries made on table joins (Project 3) */
+
+-- What animals belong to Melody Pond
+
+SELECT NAME FROM ANIMALS
+JOIN OWNSERS ON ANIMALS.OWNER_ID = OWNERS.ID
+WHERE FULL_NAME = 'Melody Pond';
+
+-- List all animals that are of species Pokemon
+
+SELECT ANIMALS.NAME FROM ANIMALS
+JOIN SPECIES ON ANIMALS.SPECIES_ID = SPECIES.ID
+WHERE SPECIES.NAME = 'Pokemon';
+
+-- List all owners and their animals including those with no animal
+
+SELECT FULL_NAME, NAME FROM OWNERS
+LEFT JOIN ANIMALS ON ANIMALS.OWNER_ID = OWNERS.ID;
+
+-- How many animals are there per species?
+
+SELECT COUNT(ANIMALS.NAME), SPECIES.NAME FROM SPECIES
+JOIN ANIMALS ON ANIMALS.SPECIES_ID = SPECIES.ID
+GROUP BY SPECIES.NAME;
+
+-- List all digimons owned by Jennifer Orwell
+
+SELECT ANIMALS.NAME FROM ANIMALS
+JOIN OWNERS ON OWNERS.ID = ANIMALS.OWNER_ID
+JOIN SPECIES ON SPECIES.ID = ANIMALS.SPECIES_ID
+WHERE SPECIES.NAME = 'Digimon' AND FULL_NAME = 'Jennifer Orwell';
+
+-- List all animals owned by Dean Winchester that haven't tried to escape
+
+SELECT ANIMALS.NAME FROM ANIMALS
+JOIN OWNERS ON OWNERS.ID = ANIMALS.OWNER_ID
+WHERE FULL_NAME = 'Dean Winchester' AND ESCAPE_ATTEMPTS = 0;
+
+-- Who owns the most animals? (Again: To be or not to be 🤦‍♂️)
+
+SELECT COUNT(ANIMALS.NAME), FULL_NAME FROM ANIMALS
+JOIN OWNERS ON OWNERS.ID = ANIMALS.OWNER_ID
+GROUP BY FULL_NAME
+HAVING COUNT(ANIMALS.NAME) = (
+  SELECT MAX(ANIMAL_COUNT) FROM (
+    SELECT COUNT(ANIMALS.NAME) AS ANIMAL_COUNT, FULL_NAME FROM ANIMALS
+    JOIN OWNERS ON OWNERS.ID = ANIMALS.OWNER_ID
+    GROUP BY FULL_NAME
+  ) AS AN_COUNT_TABLE
+);
