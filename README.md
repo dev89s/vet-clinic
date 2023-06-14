@@ -53,6 +53,9 @@ After you're finished please remove all the comments and instructions!
 
 **Vet Clinic DB** is a database that creates a table named __animals__ and inserts 4 animals with their descriptions including name, date_of_birth, weight_kg, neutered, escape_attempts and then makes different queries on those animals. It is meant for SQL learning purpose.
 
+The schema diagram of the database: ([view the drawing](https://drive.google.com/file/d/1kuosSw-84PND--RaDwLI91MPTgSGadOx/view))
+<img src="./vet_clinic%20db%20schema%20diagram.png">
+
 ## 🛠 Built With <a id="built-with"></a>
 
 ### Tech Stack <a id="tech-stack"></a>
